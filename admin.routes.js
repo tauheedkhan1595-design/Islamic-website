@@ -1,0 +1,15 @@
+import { Router } from 'express';
+import { login, logout, session, listArticles, getArticle, createArticle, updateArticle, deleteArticle, backup } from '../../../controllers/admin.controller.js';
+import { requireAdmin } from '../../../middleware/admin-auth.js';
+import { validateArticleId } from '../../../validators/article.validator.js';
+const router = Router();
+router.post('/login', login);
+router.post('/logout', requireAdmin, logout);
+router.get('/session', requireAdmin, session);
+router.get('/articles', requireAdmin, listArticles);
+router.post('/articles', requireAdmin, createArticle);
+router.get('/articles/:id', requireAdmin, validateArticleId, getArticle);
+router.put('/articles/:id', requireAdmin, validateArticleId, updateArticle);
+router.delete('/articles/:id', requireAdmin, validateArticleId, deleteArticle);
+router.get('/backup', requireAdmin, backup);
+export default router;
